@@ -12,7 +12,13 @@ Você pode verificar as versões instaladas executando os seguintes comandos:
 ```bash
 node -v
 ng version
-
+```
+Observação:
+- Para a instalação do Angular rode o seguuinte comando:
+- npm install -g @angular/cli
+- Caso esteja querendo usar a mesma versão do projeto rode:
+- npm install -g @angular/cli@13
+  
 #Passos para baixar e rodar#
 - Clone o repositório na sua máquina
 - Vá até a pasta do projeto e rode o comando "npm install"
@@ -28,5 +34,7 @@ no botão "Enviar" e Em seguida voltar para a Aba de cliente e clicar em Cadastr
 com bairro e complemento;
 - O Botão busca CEP contém uma regra para buscar dados por uma API pública e preencher os campos,
 ele deve retornar caso não tenha dados, e também pode ocorrer de não preencher caso a API esteja indisponível
-
+- O projeto será aberto na porta 4200 ( https://localhost:4200)
+- Caso abra em outra porta é interesante verificar as configurações de CORS do Servidor, pois o mesmo está com configurações de porta.
+  
 #Bons cadastros, utilize o projeto como desejar#
