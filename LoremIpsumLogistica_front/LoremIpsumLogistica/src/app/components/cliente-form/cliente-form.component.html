@@ -1,0 +1,125 @@
+<mat-tab-group>
+  <mat-tab label="Cliente">
+    <div class="container">
+      <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="id" required [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dataNascimento" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Sexo</mat-label>
+          <mat-select formControlName="sexo" required>
+            <mat-option value="1">Masculino</mat-option>
+            <mat-option value="2">Feminino</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit">Cadastrar</button>
+        <button mat-raised-button color="primary" (click)="retornarListaDeClientes()">Voltar</button>
+      </form>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Endereços">
+    <div class="container">
+      <form [formGroup]="enderecoForm" (ngSubmit)="enviarCadastroEndereco()">
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="id" required [disabled]="true">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="cep" required maxlength="8">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="buscarCep()">Buscar CEP</button>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Logradouro</mat-label>
+          <input matInput formControlName="logradouro" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="bairro">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Cidade</mat-label>
+          <input matInput formControlName="cidade" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>UF</mat-label>
+          <input matInput formControlName="uf" required maxlength="2" appUppercaseNoNumbers>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Complemento</mat-label>
+          <textarea matInput formControlName="complemento"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo de endereço</mat-label>
+          <mat-select formControlName="tipoEndereco" required>
+            <mat-option value="1">Residencial</mat-option>
+            <mat-option value="2">Comercial</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit">Enviar</button>
+      </form>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="logradouro">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Logradouro </mat-header-cell>
+          <mat-cell *matCellDef="let endereco"> {{endereco.logradouro}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cep">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> CEP </mat-header-cell>
+          <mat-cell *matCellDef="let endereco"> {{endereco.cep}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="bairro">
+          <mat-header-cell *matHeaderCellDef> Bairro </mat-header-cell>
+          <mat-cell *matCellDef="let endereco"> {{endereco.bairro}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="opcoes">
+          <mat-header-cell *matHeaderCellDef> Opções </mat-header-cell>
+          <mat-cell *matCellDef="let endereco">
+            <div>
+              <button mat-icon-button color="primary" (click)="editarEndereco(endereco)">
+                <mat-icon title="Clique para editar seu endereço">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluirEndereco(endereco)">
+                <mat-icon title="Clique para excluir seu endereço">delete</mat-icon>
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+  </mat-tab>
+</mat-tab-group>

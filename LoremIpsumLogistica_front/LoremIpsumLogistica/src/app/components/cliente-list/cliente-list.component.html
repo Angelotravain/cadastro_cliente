@@ -1,0 +1,38 @@
+<mat-toolbar class="align-header">
+  <span class="mat-h2">Cadastro de clientes</span>
+  <span class="spacer"></span>
+  <button mat-icon-button class="background-color-button-add" title="Adicionar novo cliente"
+    (click)="editarCliente(0)"><mat-icon>add</mat-icon></button>
+</mat-toolbar>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let cliente"> {{cliente.nome}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="dataNascimento">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Data de Nascimento </mat-header-cell>
+      <mat-cell *matCellDef="let cliente"> {{cliente.dataNascimento | date:'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sexo">
+      <mat-header-cell *matHeaderCellDef> Sexo </mat-header-cell>
+      <mat-cell *matCellDef="let cliente"> {{cliente.sexo === 2 ? 'Feminino' : 'Masculino'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="opcoes">
+      <mat-header-cell *matHeaderCellDef> Opções </mat-header-cell>
+      <mat-cell *matCellDef="let cliente">
+        <button mat-icon-button color="primary" (click)="editarCliente(cliente.id)">
+          <mat-icon title="Clique para editar seu cliente">edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="excluirCliente(cliente.id)">
+          <mat-icon title="Clique para excuir seu cliente">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>
